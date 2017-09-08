@@ -5,6 +5,8 @@
  */
 #include <sys/types.h>
 #include <regex.h>
+#include <string.h>
+#include <stdlib.h>
 
 enum {
   TK_NOTYPE = 256, TK_EQ, TK_INT
@@ -87,6 +89,17 @@ static bool make_token(char *e) {
 
         switch (rules[i].token_type) {
             case TK_NOTYPE: ;break;
+            case '+': tokens[i].type = '+'; break;
+            case '-': tokens[i].type = '+'; break;
+            case '*': tokens[i].type = '*'; break;
+            case '/': tokens[i].type = '/'; break;
+            case ')': tokens[i].type = ')'; break;
+            case '(': tokens[i].type = '('; break;
+            case TK_INT: 
+                      tokens[i].type = TK_INT; 
+                      strcpy(tokens[i].str, rules[i].regex);
+                      break;
+            case TK_EQ: tokens[i].type = TK_EQ; break;
           default: TODO();
         }
 
@@ -103,6 +116,43 @@ static bool make_token(char *e) {
   return true;
 }
 
+static bool check_parentheses(int p, int q) {
+    int cnum=0;
+    int flag=0;
+    for(int i=p; i<=q; i++){
+       switch (tokens[p].type) {
+           case '('/* variable case */:
+               cnum++;
+               flag=1;
+               break;
+           case ')':
+               cnum--;
+               break;
+           default: ;
+       }
+       if (cnum<=0 && i!=q) {
+           return false;
+       }
+    }
+    if (cnum==0 && flag==1) {
+        return true;
+    }
+    else return false;
+}
+int eval(int p, int q){
+    if (p>q) {
+        /*bad expression*/
+    }
+    else if(p==q) {
+        return atoi(tokens[p].str);
+    }
+    else if(check_parentheses(p, q)==true){
+        return eval(p+1,q-1);
+    }
+    else {
+        
+    }
+}
 uint32_t expr(char *e, bool *success) {
   if (!make_token(e)) {
     *success = false;

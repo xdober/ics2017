@@ -142,10 +142,10 @@ static int cmd_x(char *args){
     int addr = strtol(arg1, &stop, 16);
     uint32_t value;
     int i=0;
-    printf("%s %s\n", arg0, arg1);
+    printf("  addr\t  value\t\n");
     while(i<cnt) {
         value = vaddr_read(addr, 4);
-        printf("%x: %8x\n", addr, value);
+        printf("0x%08x: 0x%08x\n", addr, value);
         i++;
         addr+=4;
     }

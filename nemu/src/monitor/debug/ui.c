@@ -145,7 +145,7 @@ static int cmd_x(char *args){
     printf("  addr\t  value\t\n");
     while(i<cnt) {
         value = vaddr_read(addr, 4);
-        printf("0x%08x: 0x%08x\n", addr, value);
+        printf("0x%x: 0x%08x\n", addr, value);
         i++;
         addr+=4;
     }

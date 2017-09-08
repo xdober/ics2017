@@ -2,6 +2,7 @@
 #include "monitor/expr.h"
 #include "monitor/watchpoint.h"
 #include "nemu.h"
+#include "cpu/exec.h"
 
 #include <stdlib.h>
 #include <readline/readline.h>
@@ -37,6 +38,12 @@ static int cmd_q(char *args) {
 }
 
 static int cmd_help(char *args);
+static int cmd_si(char *args);
+static int cmd_info(char *args);
+static int cmd_p(char *args);
+static int cmd_x(char *args);
+static int cmd_w(char *args);
+static int cmd_d(char *args);
 
 static struct {
   char *name;
@@ -46,6 +53,12 @@ static struct {
   { "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
+  { "si", "Single step execution", cmd_si},
+  { "info", "Display program status, arg 'r' for regs, arg 'w' for MonitorPoint", cmd_info},
+  { "p", "Expression evaluates", cmd_p},
+  { "x", "Scan memery", cmd_x},
+  { "w", "Set monitor point", cmd_w},
+  { "d", "Delete monitor point", cmd_d},
 
   /* TODO: Add more commands */
 
@@ -75,7 +88,64 @@ static int cmd_help(char *args) {
   }
   return 0;
 }
+static int cmd_si(char *args){
+   char *arg = strtok(NULL, " ");
+   int num = 0;
+   if(NULL==arg) {
+       num = 1;
+   }
+   else {
+       num = atoi(arg);
+   }
+   cpu_exec(num);
+   return 0;
+}
 
+static int cmd_info(char *args){
+    char *arg = strtok(NULL," ");
+    if(NULL==arg) {
+        printf("Bad command, argument 'r' or 'w' expected\n");
+    }
+    else {
+        char tp = arg[0];
+        if(tp=='r') {
+            printf("eax = %x\n", cpu.eax);
+            printf("ecx = %x\n", cpu.ecx);
+            printf("edx = %x\n", cpu.edx);
+            printf("ebx = %x\n", cpu.ebx);
+            printf("esp = %x\n", cpu.esp);
+            printf("ebp = %x\n", cpu.ebp);
+            printf("esi = %x\n", cpu.esi);
+            printf("edi = %x\n", cpu.edi);
+            printf("eip = %x\n", cpu.eip);
+        }
+        else if(tp=='w'){
+            
+        }
+        else {
+           printf("Bad command, argument 'r' or 'w' expected\n");
+        }
+    }
+    return 0;
+}
+
+static int cmd_p(char *args){
+    
+    return 0;
+}
+
+static int cmd_x(char *args){
+    
+    return 0;
+}
+static int cmd_w(char *args){
+    
+    return 0;
+}
+static int cmd_d(char *args){
+    
+    return 0;
+}
 void ui_mainloop(int is_batch_mode) {
   if (is_batch_mode) {
     cmd_c(NULL);

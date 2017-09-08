@@ -135,7 +135,9 @@ static int cmd_p(char *args){
 }
 
 static int cmd_x(char *args){
-    
+    char *arg = strtok(NULL, " ");
+    char *addr = strtok(NULL, " ");
+    printf("%s %s", arg,addr);
     return 0;
 }
 static int cmd_w(char *args){

@@ -135,9 +135,21 @@ static int cmd_p(char *args){
 }
 
 static int cmd_x(char *args){
-    char *arg = strtok(NULL, " ");
-    char *addr = strtok(NULL, " ");
-    printf("%s %s", arg,addr);
+    char *arg0 = strtok(NULL, " ");
+    char *arg1 = strtok(NULL, " ");
+    char *stop;
+    int cnt = atoi(arg0);
+    int addr = strtol(arg1, &stop, 16);
+    uint32_t value;
+    int i=0;
+    printf("%s %s\n", arg0, arg1);
+    while(i<cnt) {
+        value = vaddr_read(addr, 4);
+        printf("%x: %8x", addr, value);
+        i++;
+        addr+=4;
+    }
+
     return 0;
 }
 static int cmd_w(char *args){

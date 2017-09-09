@@ -214,6 +214,7 @@ int findOP(int p, int q){
     int min=0;
     for (i = 0; i < pos; ++i) {
         if (priority(roots[i])<=priority(roots[min])) {
+            printf("a miner op is %c\n",tokens[roots[i]].type);
             min=i;
         }
     }

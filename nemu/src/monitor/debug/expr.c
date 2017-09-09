@@ -122,7 +122,7 @@ static bool make_token(char *e) {
   return true;
 }
 
-static bool check_parentheses(int p, int q) {
+bool check_parentheses(int p, int q) {
     if (tokens[p].type!='(' || tokens[q].type!=')') {
         return false;
     }
@@ -143,6 +143,7 @@ static bool check_parentheses(int p, int q) {
            return false;
        }
     }
+    printf("cnum=%d, flag=%d\n",cnum, flag);
     if (cnum==0 && flag==1) {
         return true;
     }

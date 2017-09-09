@@ -100,7 +100,7 @@ static bool make_token(char *e) {
                 case '(': tokens[nr_token].type = '('; break;
                 case TK_INT: 
                           tokens[nr_token].type = TK_INT; 
-                          strcpy(tokens[nr_token].str, rules[i].regex);
+                          strcpy(tokens[nr_token].str, substr_start);
                           break;
                 case TK_EQ: tokens[nr_token].type = TK_EQ; break;
               default: TODO();

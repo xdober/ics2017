@@ -105,7 +105,7 @@ static bool make_token(char *e) {
                 case TK_EQ: tokens[i].type = TK_EQ; break;
               default: TODO();
             }
-            printf("%d",nr_token);
+            printf("nr_token = %d\n",nr_token);
             nr_token++;
         }
         break;
@@ -255,6 +255,7 @@ int eval(int p, int q){
 uint32_t expr(char *e, bool *success) {
   if (!make_token(e)) {
     *success = false;
+    printf("make_token error\n");
     return 0;
   }
 

@@ -99,10 +99,10 @@ static bool make_token(char *e) {
                 case ')': tokens[nr_token].type = ')'; break;
                 case '(': tokens[nr_token].type = '('; break;
                 case TK_INT: 
-                          tokens[i].type = TK_INT; 
-                          strcpy(tokens[i].str, rules[i].regex);
+                          tokens[nr_token].type = TK_INT; 
+                          strcpy(tokens[nr_token].str, rules[i].regex);
                           break;
-                case TK_EQ: tokens[i].type = TK_EQ; break;
+                case TK_EQ: tokens[nr_token].type = TK_EQ; break;
               default: TODO();
             }
             printf("nr_token = %d\n",nr_token);
@@ -236,7 +236,7 @@ int eval(int p, int q){
     }
     else {
         int op = findOP(p, q);
-        Log("%d", op);
+        Log("root op is %dth", op);
         int val1 = eval(p, op-1);
         int val2 = eval(op+1, q);
 

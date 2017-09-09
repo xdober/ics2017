@@ -105,6 +105,7 @@ static bool make_token(char *e) {
                 case TK_EQ: tokens[i].type = TK_EQ; break;
               default: TODO();
             }
+            printf("%d",nr_token);
             nr_token++;
         }
         break;

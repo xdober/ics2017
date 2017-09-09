@@ -220,16 +220,20 @@ int eval(int p, int q){
     printf("p = %d, q = %d\n",p, q);
     if (p>q) {
         /*bad expression*/
+        printf("bad expression\n");
         return BAD_EXP;
     }
     else if(p==q) {
+        printf("%s",tokens[p].str);
         return atoi(tokens[p].str);
     }
     else if(check_parentheses(p, q)==true){
+        printf("p~q in bk");
         return eval(p+1,q-1);
     }
     else {
         int op = findOP(p, q);
+        Log("%d", op);
         int val1 = eval(p, op-1);
         int val2 = eval(op+1, q);
 

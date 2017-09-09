@@ -206,7 +206,7 @@ int findOP(int p, int q){
         if (isOP(i) && !inBK(i, p, q) ) {
             roots[pos]=i;
             i++;
-            printf("%c\t",tokens[i].type);
+            printf("%d\t",tokens[i].type);
         }
     }
     Log("\n");

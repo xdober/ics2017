@@ -201,12 +201,15 @@ int findOP(int p, int q){
     int i=0;
     int roots[q-p];
     int pos=0;
+    printf("operaters: ");
     for (i = p; i <= q; ++i) {
         if (isOP(i) && !inBK(i, p, q) ) {
             roots[pos]=i;
             i++;
+            printf("%c\t",tokens[i].type);
         }
     }
+    Log("\n");
     int min=0;
     for (i = 0; i < pos; ++i) {
         if (priority(roots[i])<=priority(roots[min])) {

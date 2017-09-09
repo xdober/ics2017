@@ -92,12 +92,12 @@ static bool make_token(char *e) {
 
 
             switch (rules[i].token_type) {
-                case '+': tokens[i].type = '+'; break;
-                case '-': tokens[i].type = '-'; break;
-                case '*': tokens[i].type = '*'; break;
-                case '/': tokens[i].type = '/'; break;
-                case ')': tokens[i].type = ')'; break;
-                case '(': tokens[i].type = '('; break;
+                case '+': tokens[nr_token].type = '+'; break;
+                case '-': tokens[nr_token].type = '-'; break;
+                case '*': tokens[nr_token].type = '*'; break;
+                case '/': tokens[nr_token].type = '/'; break;
+                case ')': tokens[nr_token].type = ')'; break;
+                case '(': tokens[nr_token].type = '('; break;
                 case TK_INT: 
                           tokens[i].type = TK_INT; 
                           strcpy(tokens[i].str, rules[i].regex);
@@ -203,7 +203,7 @@ int findOP(int p, int q){
     int pos=0;
     printf("operaters: ");
     for (i = p; i <= q; ++i) {
-        if (isOP(i)/* && !inBK(i, p, q)*/ ) {
+        if (isOP(i) && !inBK(i, p, q) ) {
             roots[pos]=i;
             printf("%d,%c\t",i,tokens[i].type);
             i++;

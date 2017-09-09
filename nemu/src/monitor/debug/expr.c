@@ -87,23 +87,26 @@ static bool make_token(char *e) {
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
          */
+        
+        if(rules[i].token_type!=TK_NOTYPE){
 
-        switch (rules[i].token_type) {
-            case TK_NOTYPE: ;break;
-            case '+': tokens[i].type = '+'; break;
-            case '-': tokens[i].type = '+'; break;
-            case '*': tokens[i].type = '*'; break;
-            case '/': tokens[i].type = '/'; break;
-            case ')': tokens[i].type = ')'; break;
-            case '(': tokens[i].type = '('; break;
-            case TK_INT: 
-                      tokens[i].type = TK_INT; 
-                      strcpy(tokens[i].str, rules[i].regex);
-                      break;
-            case TK_EQ: tokens[i].type = TK_EQ; break;
-          default: TODO();
+
+            switch (rules[i].token_type) {
+                case '+': tokens[i].type = '+'; break;
+                case '-': tokens[i].type = '+'; break;
+                case '*': tokens[i].type = '*'; break;
+                case '/': tokens[i].type = '/'; break;
+                case ')': tokens[i].type = ')'; break;
+                case '(': tokens[i].type = '('; break;
+                case TK_INT: 
+                          tokens[i].type = TK_INT; 
+                          strcpy(tokens[i].str, rules[i].regex);
+                          break;
+                case TK_EQ: tokens[i].type = TK_EQ; break;
+              default: TODO();
+            }
+            nr_token++;
         }
-
         break;
       }
     }
@@ -255,7 +258,8 @@ uint32_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-  TODO();
-
-  return 0;
+ // TODO();
+ //
+  return eval(0,nr_token-1);
+//  return 0;
 }

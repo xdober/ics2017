@@ -130,7 +130,15 @@ static int cmd_info(char *args){
 }
 
 static int cmd_p(char *args){
-    
+    bool success=true;
+    int result=0;
+    result=expr(args, &success);
+    if(success){
+        printf("%d\n",result);
+    }
+    else {
+        printf("uncorrect input!\n");
+    }
     return 0;
 }
 

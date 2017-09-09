@@ -214,7 +214,7 @@ int findOP(int p, int q){
     int min=0;
     for (i = 0; i < pos; ++i) {
         if (priority(roots[i])<=priority(roots[min])) {
-            printf("a miner op is %c\n",tokens[roots[i]].type);
+//            printf("a miner op is %c\n",tokens[roots[i]].type);
             min=i;
         }
     }
@@ -233,7 +233,7 @@ int eval(int p, int q){
         return atoi(tokens[p].str);
     }
     else if(check_parentheses(p, q)==true){
-        printf("p~q in bk");
+        printf("p~q in bk\n");
         return eval(p+1,q-1);
     }
     else {

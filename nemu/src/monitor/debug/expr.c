@@ -100,7 +100,8 @@ static bool make_token(char *e) {
                 case '(': tokens[nr_token].type = '('; break;
                 case TK_INT: 
                           tokens[nr_token].type = TK_INT; 
-                          strcpy(tokens[nr_token].str, substr_start);
+                          strncpy(tokens[nr_token].str, substr_start,substr_len);
+                          tokens[nr_token].str[substr_len]='\0';
                           break;
                 case TK_EQ: tokens[nr_token].type = TK_EQ; break;
               default: TODO();
@@ -227,7 +228,7 @@ int eval(int p, int q){
         return BAD_EXP;
     }
     else if(p==q) {
-        printf("%s",tokens[p].str);
+        printf("%s\n",tokens[p].str);
         return atoi(tokens[p].str);
     }
     else if(check_parentheses(p, q)==true){

@@ -217,6 +217,7 @@ int findOP(int p, int q){
 }
 
 int eval(int p, int q){
+    printf("p = %d, q = %d\n",p, q);
     if (p>q) {
         /*bad expression*/
         return BAD_EXP;

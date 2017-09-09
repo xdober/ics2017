@@ -106,7 +106,7 @@ static bool make_token(char *e) {
                 case TK_EQ: tokens[nr_token].type = TK_EQ; break;
               default: TODO();
             }
-            printf("nr_token = %d\n",nr_token);
+//            printf("nr_token = %d\n",nr_token);
             nr_token++;
         }
         break;
@@ -143,7 +143,7 @@ bool check_parentheses(int p, int q) {
            return false;
        }
     }
-    printf("cnum=%d, flag=%d\n",cnum, flag);
+//    printf("cnum=%d, flag=%d\n",cnum, flag);
     if (cnum==0 && flag==1) {
         return true;
     }
@@ -203,11 +203,11 @@ int findOP(int p, int q){
     int i=0;
     int roots[q-p];
     int pos=0;
-    printf("operaters: ");
+//    printf("operaters: ");
     for (i = p; i <= q; ++i) {
         if (isOP(i) && !inBK(i, p, q) ) {
             roots[pos]=i;
-            printf("%d,%c\t",i,tokens[i].type);
+//            printf("%d,%c\t",i,tokens[i].type);
             pos++;
         }
     }
@@ -230,11 +230,11 @@ int eval(int p, int q){
         return BAD_EXP;
     }
     else if(p==q) {
-        printf("%s\n",tokens[p].str);
+//        printf("%s\n",tokens[p].str);
         return atoi(tokens[p].str);
     }
     else if(check_parentheses(p, q)==true){
-        printf("p~q in bk\n");
+//        printf("p~q in bk\n");
         return eval(p+1,q-1);
     }
     else {

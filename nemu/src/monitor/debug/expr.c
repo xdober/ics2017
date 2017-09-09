@@ -129,7 +129,7 @@ bool check_parentheses(int p, int q) {
     int cnum=0;
     int flag=0;
     for(int i=p; i<=q; i++){
-       switch (tokens[p].type) {
+       switch (tokens[i].type) {
            case '('/* variable case */:
                cnum++;
                flag=1;

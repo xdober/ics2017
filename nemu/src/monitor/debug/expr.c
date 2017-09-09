@@ -36,6 +36,7 @@ static struct rule {
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
+#define BAD_EXP 0x80000000
 
 static regex_t re[NR_REGEX];
 
@@ -117,6 +118,9 @@ static bool make_token(char *e) {
 }
 
 static bool check_parentheses(int p, int q) {
+    if (tokens[p].type!='(' || tokens[q].type!=')') {
+        return false;
+    }
     int cnum=0;
     int flag=0;
     for(int i=p; i<=q; i++){
@@ -139,9 +143,79 @@ static bool check_parentheses(int p, int q) {
     }
     else return false;
 }
+
+bool isOP(int index) {
+    if (tokens[index].type=='+' || tokens[index].type=='-' || tokens[index].type=='*' || tokens[index].type=='/') {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+bool inBK(int index, int p,  int q) {
+    int numL=0,numR=0;
+    for (int i = index+1; i <= q; ++i) {
+        if (tokens[i].type=='(') {
+            numL++;
+        }
+        else if (tokens[i].type==')') {
+            numR++;
+        }
+    }
+    if (numL!=numR) {
+        return true;
+    }
+    numL=0;
+    numR=0;
+    for (int i=index-1; i>=p; --i) {
+        if (tokens[i].type=='(') {
+            numL++;
+        } else if(tokens[i].type==')') {
+            numR++;
+        }
+    }
+    if (numL!=numR) {
+        return true;
+    }
+    return false;
+}
+
+int priority(int pos) {
+    if (tokens[pos].type=='+' || tokens[pos].type=='-') {
+        return 1;
+    }
+    else if (tokens[pos].type=='*' || tokens[pos].type=='/') {
+        return 2;
+    }
+    else {
+        return 2;
+    }
+}
+
+int findOP(int p, int q){
+    int i=0;
+    int roots[q-p];
+    int pos=0;
+    for (i = p; i <= q; ++i) {
+        if (isOP(i) && !inBK(i, p, q) ) {
+            roots[pos]=i;
+            i++;
+        }
+    }
+    int min=0;
+    for (i = 0; i < pos; ++i) {
+        if (priority(roots[i])<=priority(roots[min])) {
+            min=i;
+        }
+    }
+    return roots[min];
+}
+
 int eval(int p, int q){
     if (p>q) {
         /*bad expression*/
+        return BAD_EXP;
     }
     else if(p==q) {
         return atoi(tokens[p].str);
@@ -150,9 +224,30 @@ int eval(int p, int q){
         return eval(p+1,q-1);
     }
     else {
-        
+        int op = findOP(p, q);
+        int val1 = eval(p, op-1);
+        int val2 = eval(op+1, q);
+
+        switch (tokens[op].type) {
+            case '+':
+                return val1 + val2;
+                break;
+            case '-':
+                return val1 - val2;
+                break;
+            case '*':
+                return val1*val2;
+                break;
+            case '/':
+                return val1/val2;
+                break;
+            default:assert(0);
+                
+        }
     }
+    return 0;
 }
+
 uint32_t expr(char *e, bool *success) {
   if (!make_token(e)) {
     *success = false;

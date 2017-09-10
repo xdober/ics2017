@@ -9,7 +9,7 @@
 #include <stdlib.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ, TK_INT, HEX_INT, TK_REG, TK_NEQ, DEFREF
+  TK_NOTYPE = 256, TK_EQ, TK_INT, HEX_INT, TK_REG, TK_NEQ, DEFREF, TK_NOT, TK_AND, TK_OR
 
   /* TODO: Add more token types */
   
@@ -29,8 +29,11 @@ static struct rule {
   {"\\$e[abcd]x", TK_REG},             //reg
   {"\\$e[bsi]p", TK_REG},             //reg
   {"\\$e[sd]i", TK_REG},             //reg
+  {"&&", TK_AND},                   //and
+  {"\\|\\|",TK_OR},                 //or
   {"\\+", '+'},         // plus
   {"!=", TK_NEQ},       //not equal
+  {"!", TK_NOT},        //not
   {"==", TK_EQ},         // equal
   {"\\-", '-'},         //sub
   {"\\*", '*'},         //mul
@@ -120,6 +123,9 @@ static bool make_token(char *e) {
                           break;
                 case TK_EQ: tokens[nr_token].type = TK_EQ; break;
                 case TK_NEQ: tokens[nr_token].type = TK_NEQ; break;
+                case TK_AND: tokens[nr_token].type = TK_AND; break;
+                case TK_OR: tokens[nr_token].type = TK_OR; break;
+                case TK_NOT: tokens[nr_token].type = TK_NOT; break;
               default: TODO();
             }
 //            printf("nr_token = %d\n",nr_token);
@@ -298,6 +304,12 @@ int eval(int p, int q){
                 break;
             case '/':
                 return val1/val2;
+                break;
+            case TK_EQ:
+                return val1==val2;
+                break;
+            case TK_NEQ:
+                return val1!=val2;
                 break;
             default:assert(0);
                 

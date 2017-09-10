@@ -9,7 +9,7 @@
 #include <stdlib.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ, TK_INT, HEX_INT, TK_REG, TK_NEQ, DEFREF, TK_NOT, TK_AND, TK_OR, TK_MINUS
+  TK_NOTYPE = 256, TK_EQ, TK_INT, HEX_INT, TK_REG, TK_NEQ, DEFREF, TK_NOT, TK_AND, TK_OR, TK_MINUS, TK_H, TK_L, TK_HE, TK_LE
 
   /* TODO: Add more token types */
   
@@ -35,6 +35,10 @@ static struct rule {
   {"!=", TK_NEQ},       //not equal
   {"!", TK_NOT},        //not
   {"==", TK_EQ},         // equal
+  {">", TK_H},           //higer
+  {"<", TK_L},          //lower
+  {">=", TK_HE},         //higher or equal
+  {"<=", TK_LE},         //lower or equal
   {"\\-", '-'},         //sub
   {"\\*", '*'},         //mul
   {"\\/", '/'},         //div
@@ -122,6 +126,10 @@ static bool make_token(char *e) {
                           tokens[nr_token].str[substr_len]='\0';
                           break;
                 case TK_EQ: tokens[nr_token].type = TK_EQ; break;
+                case TK_H: tokens[nr_token].type = TK_H; break;
+                case TK_HE: tokens[nr_token].type = TK_HE; break;
+                case TK_L: tokens[nr_token].type = TK_L; break;
+                case TK_LE: tokens[nr_token].type = TK_LE; break;
                 case TK_NEQ: tokens[nr_token].type = TK_NEQ; break;
                 case TK_AND: tokens[nr_token].type = TK_AND; break;
                 case TK_OR: tokens[nr_token].type = TK_OR; break;
@@ -174,7 +182,11 @@ bool check_parentheses(int p, int q) {
 }
 
 bool isOP(int index) {
-    if (tokens[index].type=='+' || tokens[index].type=='-' || tokens[index].type=='*' || tokens[index].type=='/' || tokens[index].type==TK_EQ || tokens[index].type==TK_NEQ || tokens[index].type==TK_NOT || tokens[index].type==TK_MINUS || tokens[index].type==DEFREF || tokens[index].type==TK_AND || tokens[index].type==TK_OR) {
+    if (tokens[index].type=='+' || tokens[index].type=='-' || tokens[index].type=='*' || tokens[index].type=='/' 
+            || tokens[index].type==TK_EQ || tokens[index].type==TK_NEQ || tokens[index].type==TK_NOT 
+            || tokens[index].type==TK_MINUS || tokens[index].type==DEFREF || tokens[index].type==TK_AND 
+            || tokens[index].type==TK_OR || tokens[index].type==TK_H || tokens[index].type==TK_HE 
+            || tokens[index].type==TK_L || tokens[index].type==TK_LE) {
         return true;
     }
     else {
@@ -214,11 +226,14 @@ int priority(int pos) {
     if (tokens[pos].type==TK_EQ || tokens[pos].type==TK_NEQ) {
         return 1;
     }
-    else if (tokens[pos].type=='+' || tokens[pos].type=='-') {
+    else if (tokens[pos].type==TK_H || tokens[pos].type==TK_HE || tokens[pos].type==TK_L || tokens[pos].type==TK_LE) {
         return 2;
     }
-    else if (tokens[pos].type=='*' || tokens[pos].type=='/') {
+    else if (tokens[pos].type=='+' || tokens[pos].type=='-') {
         return 3;
+    }
+    else if (tokens[pos].type=='*' || tokens[pos].type=='/') {
+        return 4;
     }
     else if (tokens[pos].type==TK_NOT || tokens[pos].type==DEFREF ||tokens[pos].type==TK_MINUS) {
         return 5;
@@ -323,6 +338,18 @@ int eval(int p, int q){
             case TK_NEQ:
                 return val1!=val2;
                 break;
+            case TK_H:
+                return val1>val2;
+                break;
+            case TK_HE:
+                return val1>=val2;
+                break;
+            case TK_L:
+                return val1<val2;
+                break;
+            case TK_LE:
+                return val1<=val2;
+                break;
             case TK_AND:
                 return val1 && val2;
                 break;
@@ -363,7 +390,9 @@ bool correctEXP(){
         return false;
     }
     for (i = 0; i < nr_token; ++i) {
-        if (tokens[i].type=='+' || tokens[i].type=='-' || tokens[i].type=='*'  || tokens[i].type=='/' || tokens[i].type==TK_EQ || tokens[i].type==TK_NEQ || tokens[i].type==TK_AND || tokens[i].type==TK_OR) {//双目运算符
+        if (tokens[i].type=='+' || tokens[i].type=='-' || tokens[i].type=='*'  || tokens[i].type=='/' 
+                || tokens[i].type==TK_EQ || tokens[i].type==TK_NEQ || tokens[i].type==TK_H || tokens[i].type==TK_HE || tokens[i].type==TK_L || tokens[i].type==TK_LE
+                || tokens[i].type==TK_AND || tokens[i].type==TK_OR) {//双目运算符
            if (i==0 || i==nr_token-1) {
                return false;
            } 

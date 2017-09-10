@@ -43,6 +43,7 @@ void free_wp(WP *wp) {
 void setWP(char *args){
     bool isEXP = false;
     int Ovalue = expr(args, &isEXP);
+    printf("%s\n", args);
     if (!isEXP) {
         printf("incorrect expression!\n");
         return ;

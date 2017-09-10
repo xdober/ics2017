@@ -11,6 +11,7 @@
 int nemu_state = NEMU_STOP;
 
 void exec_wrapper(bool);
+bool triggerWP(int *no);
 
 /* Simulate how the CPU works. */
 void cpu_exec(uint64_t n) {
@@ -29,6 +30,12 @@ void cpu_exec(uint64_t n) {
 
 #ifdef DEBUG
     /* TODO: check watchpoints here. */
+    int no=0;
+    bool flag = triggerWP(&no);
+    if (flag) {
+        nemu_state = NEMU_STOP;
+        printf("no.%d watchpoint triggered\n", no);
+    }
 
 #endif
 

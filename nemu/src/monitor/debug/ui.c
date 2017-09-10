@@ -9,6 +9,9 @@
 #include <readline/history.h>
 
 void cpu_exec(uint64_t);
+void setWP(char *args);
+void showWP();
+void delWP(int no);
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 char* rl_gets() {
@@ -120,7 +123,7 @@ static int cmd_info(char *args){
             printf("eip = %x\n", cpu.eip);
         }
         else if(tp=='w'){
-            
+            showWP();
         }
         else {
            printf("Bad command, argument 'r' or 'w' expected\n");
@@ -161,11 +164,17 @@ static int cmd_x(char *args){
     return 0;
 }
 static int cmd_w(char *args){
-    
+    setWP(args);
     return 0;
 }
 static int cmd_d(char *args){
-    
+    char *arg = strtok(NULL, " ");
+    if (arg==NULL) {
+        printf("Bad command, an interger argument expected.\n");
+        return 0;
+    }
+    int no = atoi(arg);
+    delWP(no);
     return 0;
 }
 void ui_mainloop(int is_batch_mode) {

@@ -289,7 +289,7 @@ int eval(int p, int q){
     }
     else {
         int op = findOP(p, q);
-        if (op<=0) {
+        if (op<0) {
             return BAD_EXP;
         }
         Log("root op is %dth", op);

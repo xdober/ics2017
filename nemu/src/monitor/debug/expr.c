@@ -87,8 +87,8 @@ static bool make_token(char *e) {
         char *substr_start = e + position;
         int substr_len = pmatch.rm_eo;
 
-        Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
-            i, rules[i].regex, position, substr_len, substr_len, substr_start);
+//        Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
+//            i, rules[i].regex, position, substr_len, substr_len, substr_start);
         position += substr_len;
 
         /* TODO: Now a new token is recognized with rules[i]. Add codes
@@ -240,7 +240,7 @@ int findOP(int p, int q){
             pos++;
         }
     }
-    Log("\n");
+//    Log("\n");
     int min=0;
     for (i = 0; i < pos; ++i) {
         if (priority(roots[i])<=priority(roots[min])) {
@@ -273,7 +273,7 @@ int str2num(int pos) {
 }
 
 int eval(int p, int q){
-    printf("p = %d, q = %d\n",p, q);
+//    printf("p = %d, q = %d\n",p, q);
     if (p>q) {
         /*bad expression*/
         printf("bad expression\n");
@@ -292,7 +292,7 @@ int eval(int p, int q){
         if (op<0) {
             return BAD_EXP;
         }
-        Log("root op is %dth", op);
+//        Log("root op is %dth", op);
         int val1=0;
         if (tokens[op].type==TK_NOT || tokens[op].type==TK_MINUS || tokens[op].type==DEFREF) {
             ;

@@ -174,7 +174,7 @@ bool check_parentheses(int p, int q) {
 }
 
 bool isOP(int index) {
-    if (tokens[index].type=='+' || tokens[index].type=='-' || tokens[index].type=='*' || tokens[index].type=='/') {
+    if (tokens[index].type=='+' || tokens[index].type=='-' || tokens[index].type=='*' || tokens[index].type=='/' || tokens[index].type==TK_EQ || tokens[index].type==TK_NEQ || tokens[index].type==TK_NOT) {
         return true;
     }
     else {
@@ -217,8 +217,11 @@ int priority(int pos) {
     else if (tokens[pos].type=='*' || tokens[pos].type=='/') {
         return 2;
     }
+    else if (tokens[pos].type==TK_NOT) {
+        return 4;
+    }
     else {
-        return 2;
+        return 4;
     }
 }
 

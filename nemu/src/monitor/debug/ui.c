@@ -148,9 +148,14 @@ static int cmd_p(char *args){
 static int cmd_x(char *args){
     char *arg0 = strtok(NULL, " ");
     char *arg1 = strtok(NULL, " ");
-    char *stop;
+//    char *stop;
     int cnt = atoi(arg0);
-    int addr = strtol(arg1, &stop, 16);
+    bool flag =true;
+    int addr = expr(arg1, &flag);
+    if (!flag) {
+        printf("incorrect expression.\n");
+        return 0;
+    }
     uint32_t value;
     int i=0;
     printf("  addr\t  value\t\n");

@@ -9,7 +9,7 @@
 #include <stdlib.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ, TK_INT
+  TK_NOTYPE = 256, TK_EQ, TK_INT, HEX_INT, TK_REG, TK_NEQ, DEFREF
 
   /* TODO: Add more token types */
   
@@ -25,7 +25,12 @@ static struct rule {
    */
 
   {" +", TK_NOTYPE},    // spaces
+  {"0[xX][0-9a-fA-F]+", HEX_INT},   //hex number
+  {"\\$e[abcd]x", TK_REG},             //reg
+  {"\\$e[bsi]p", TK_REG},             //reg
+  {"\\$e[sd]i", TK_REG},             //reg
   {"\\+", '+'},         // plus
+  {"!=", TK_NEQ},       //not equal
   {"==", TK_EQ},         // equal
   {"\\-", '-'},         //sub
   {"\\*", '*'},         //mul
@@ -103,7 +108,18 @@ static bool make_token(char *e) {
                           strncpy(tokens[nr_token].str, substr_start,substr_len);
                           tokens[nr_token].str[substr_len]='\0';
                           break;
+                case HEX_INT:
+                          tokens[nr_token].type = HEX_INT;
+                          strncpy(tokens[nr_token].str, substr_start,substr_len);
+                          tokens[nr_token].str[substr_len]='\0';
+                          break;
+                case TK_REG:
+                          tokens[nr_token].type = TK_REG;
+                          strncpy(tokens[nr_token].str, substr_start,substr_len);
+                          tokens[nr_token].str[substr_len]='\0';
+                          break;
                 case TK_EQ: tokens[nr_token].type = TK_EQ; break;
+                case TK_NEQ: tokens[nr_token].type = TK_NEQ; break;
               default: TODO();
             }
 //            printf("nr_token = %d\n",nr_token);
@@ -223,6 +239,27 @@ int findOP(int p, int q){
     return roots[min];
 }
 
+int str2num(int pos) {
+    if (tokens[pos].type==TK_INT) {
+        return atoi(tokens[pos].str);
+    }
+    else if (tokens[pos].type==HEX_INT) {
+        char *end;
+        return strtol(tokens[pos].str, &end, 16);
+    } else if (tokens[pos].type==TK_REG) {
+       if(!strcmp(tokens[pos].str, "$eax")) return cpu.eax;
+       else if(!strcmp(tokens[pos].str, "$ebx")) return cpu.ebx;
+       else if(!strcmp(tokens[pos].str, "$edx")) return cpu.edx;
+       else if(!strcmp(tokens[pos].str, "$ecx")) return cpu.ecx;
+       else if(!strcmp(tokens[pos].str, "$ebp")) return cpu.ebp;
+       else if(!strcmp(tokens[pos].str, "$esp")) return cpu.esp;
+       else if(!strcmp(tokens[pos].str, "$eip")) return cpu.eip;
+       else if(!strcmp(tokens[pos].str, "$esi")) return cpu.esi;
+       else if(!strcmp(tokens[pos].str, "$edi")) return cpu.edi;
+    }
+    return 0;
+}
+
 int eval(int p, int q){
     printf("p = %d, q = %d\n",p, q);
     if (p>q) {
@@ -232,7 +269,7 @@ int eval(int p, int q){
     }
     else if(p==q) {
 //        printf("%s\n",tokens[p].str);
-        return atoi(tokens[p].str);
+        return str2num(p);
     }
     else if(check_parentheses(p, q)==true){
 //        printf("p~q in bk\n");
@@ -277,9 +314,13 @@ uint32_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
- // TODO();
- //
-  
+  int i=0;
+  for (i = 0; i < nr_token; ++i) {
+      if (tokens[i].type=='*' && (i==0 || isOP(i-1) || tokens[i-1].type=='(')) {
+          tokens[i].type=DEFREF;
+      }
+  }
+
   return eval(0,nr_token-1);
 //  return 0;
 }

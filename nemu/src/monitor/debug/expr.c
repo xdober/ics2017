@@ -9,7 +9,7 @@
 #include <stdlib.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ, TK_INT, HEX_INT, TK_REG, TK_NEQ, DEFREF, TK_NOT, TK_AND, TK_OR
+  TK_NOTYPE = 256, TK_EQ, TK_INT, HEX_INT, TK_REG, TK_NEQ, DEFREF, TK_NOT, TK_AND, TK_OR, TK_MINUS
 
   /* TODO: Add more token types */
   
@@ -174,7 +174,7 @@ bool check_parentheses(int p, int q) {
 }
 
 bool isOP(int index) {
-    if (tokens[index].type=='+' || tokens[index].type=='-' || tokens[index].type=='*' || tokens[index].type=='/' || tokens[index].type==TK_EQ || tokens[index].type==TK_NEQ || tokens[index].type==TK_NOT) {
+    if (tokens[index].type=='+' || tokens[index].type=='-' || tokens[index].type=='*' || tokens[index].type=='/' || tokens[index].type==TK_EQ || tokens[index].type==TK_NEQ || tokens[index].type==TK_NOT || tokens[index].type==TK_MINUS || tokens[index].type==DEFREF) {
         return true;
     }
     else {
@@ -211,17 +211,20 @@ bool inBK(int index, int p,  int q) {
 }
 
 int priority(int pos) {
-    if (tokens[pos].type=='+' || tokens[pos].type=='-') {
+    if (tokens[pos].type==TK_EQ || tokens[pos].type==TK_NEQ) {
         return 1;
     }
-    else if (tokens[pos].type=='*' || tokens[pos].type=='/') {
+    else if (tokens[pos].type=='+' || tokens[pos].type=='-') {
         return 2;
     }
-    else if (tokens[pos].type==TK_NOT) {
-        return 4;
+    else if (tokens[pos].type=='*' || tokens[pos].type=='/') {
+        return 3;
+    }
+    else if (tokens[pos].type==TK_NOT || tokens[pos].type==DEFREF ||tokens[pos].type==TK_MINUS) {
+        return 5;
     }
     else {
-        return 4;
+        return 5;
     }
 }
 
@@ -291,7 +294,7 @@ int eval(int p, int q){
         }
         Log("root op is %dth", op);
         int val1=0;
-        if (tokens[op].type==TK_NOT) {
+        if (tokens[op].type==TK_NOT || tokens[op].type==TK_MINUS || tokens[op].type==DEFREF) {
             ;
         }
         else {
@@ -329,6 +332,12 @@ int eval(int p, int q){
             case TK_NOT:
                 return !val2;
                 break;
+            case TK_MINUS:
+                return -val2;
+                break;
+            case DEFREF:
+                return vaddr_read(DEFREF, 4);
+                break;
             default:assert(0);
                 
         }
@@ -348,6 +357,9 @@ uint32_t expr(char *e, bool *success) {
   for (i = 0; i < nr_token; ++i) {
       if (tokens[i].type=='*' && (i==0 || isOP(i-1) || tokens[i-1].type=='(')) {
           tokens[i].type=DEFREF;
+      }
+      else if (tokens[i].type=='-' && (i==0 || isOP(i-1) || tokens[i-1].type=='(') ) {
+          tokens[i].type=TK_MINUS;
       }
   }
 

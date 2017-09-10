@@ -140,6 +140,7 @@ bool check_parentheses(int p, int q) {
            default: ;
        }
        if (cnum<=0 && i!=q) {
+
            return false;
        }
     }
@@ -239,6 +240,9 @@ int eval(int p, int q){
     }
     else {
         int op = findOP(p, q);
+        if (op<=0) {
+            return BAD_EXP;
+        }
         Log("root op is %dth", op);
         int val1 = eval(p, op-1);
         int val2 = eval(op+1, q);
@@ -273,6 +277,7 @@ uint32_t expr(char *e, bool *success) {
   /* TODO: Insert codes to evaluate the expression. */
  // TODO();
  //
+  
   return eval(0,nr_token-1);
 //  return 0;
 }

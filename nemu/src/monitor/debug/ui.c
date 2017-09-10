@@ -133,7 +133,7 @@ static int cmd_p(char *args){
     bool success=true;
     int result=0;
     result=expr(args, &success);
-    if(success){
+    if(success && result!=0x80000000){
         printf("%d\n",result);
     }
     else {

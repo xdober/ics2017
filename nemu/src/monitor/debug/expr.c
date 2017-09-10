@@ -246,7 +246,9 @@ int eval(int p, int q){
         Log("root op is %dth", op);
         int val1 = eval(p, op-1);
         int val2 = eval(op+1, q);
-
+        if (val1==BAD_EXP || val2==BAD_EXP) {
+            return BAD_EXP;
+        }
         switch (tokens[op].type) {
             case '+':
                 return val1 + val2;

@@ -287,7 +287,13 @@ int eval(int p, int q){
             return BAD_EXP;
         }
         Log("root op is %dth", op);
-        int val1 = eval(p, op-1);
+        int val1=0;
+        if (tokens[op].type==TK_NOT) {
+            ;
+        }
+        else {
+            val1 = eval(p, op-1);
+        }
         int val2 = eval(op+1, q);
         if (val1==BAD_EXP || val2==BAD_EXP) {
             return BAD_EXP;
@@ -310,6 +316,15 @@ int eval(int p, int q){
                 break;
             case TK_NEQ:
                 return val1!=val2;
+                break;
+            case TK_AND:
+                return val1 && val2;
+                break;
+            case TK_OR:
+                return val1 || val2;
+                break;
+            case TK_NOT:
+                return !val2;
                 break;
             default:assert(0);
                 

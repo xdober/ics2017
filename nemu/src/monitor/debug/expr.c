@@ -174,7 +174,7 @@ bool check_parentheses(int p, int q) {
 }
 
 bool isOP(int index) {
-    if (tokens[index].type=='+' || tokens[index].type=='-' || tokens[index].type=='*' || tokens[index].type=='/' || tokens[index].type==TK_EQ || tokens[index].type==TK_NEQ || tokens[index].type==TK_NOT || tokens[index].type==TK_MINUS || tokens[index].type==DEFREF) {
+    if (tokens[index].type=='+' || tokens[index].type=='-' || tokens[index].type=='*' || tokens[index].type=='/' || tokens[index].type==TK_EQ || tokens[index].type==TK_NEQ || tokens[index].type==TK_NOT || tokens[index].type==TK_MINUS || tokens[index].type==DEFREF || tokens[index].type==TK_AND || tokens[index].type==TK_OR) {
         return true;
     }
     else {
@@ -345,6 +345,48 @@ int eval(int p, int q){
     return 0;
 }
 
+bool correctEXP(){
+    int cnum=0;
+    int i=0;
+    for (i=0;i<nr_token;i++) {
+        if (tokens[i].type=='(') {
+            cnum++;
+        }
+        else if (tokens[i].type==')') {
+            cnum--;
+            if (cnum<0) {
+                return false;
+            }
+        }
+    }
+    if (cnum!=0) {
+        return false;
+    }
+    for (i = 0; i < nr_token; ++i) {
+        if (tokens[i].type=='+' || tokens[i].type=='-' || tokens[i].type=='*'  || tokens[i].type=='/' || tokens[i].type==TK_EQ || tokens[i].type==TK_NEQ || tokens[i].type==TK_AND || tokens[i].type==TK_OR) {//双目运算符
+           if (i==0 || i==nr_token-1) {
+               return false;
+           } 
+           else if (tokens[i-1].type!=TK_INT && tokens[i-1].type!=HEX_INT && tokens[i-1].type!=TK_REG && tokens[i-1].type!=')' && tokens[i+1].type!=TK_INT && tokens[i+1].type!=HEX_INT && tokens[i+1].type!=TK_REG && tokens[i+1].type!='(' && tokens[i+1].type!=TK_MINUS && tokens[i+1].type!=TK_NOT && tokens[i+1].type!=DEFREF) {
+               return false;
+           }
+        }
+        else if (tokens[i].type==TK_MINUS || tokens[i].type==DEFREF || tokens[i].type==TK_NOT) {//单目运算符
+            if (i==nr_token-1) {
+                return false;
+            }
+            else if (tokens[i+1].type!=TK_INT && tokens[i+1].type!=HEX_INT && tokens[i+1].type!=TK_REG && tokens[i+1].type!='(' && tokens[i+1].type!=TK_MINUS && tokens[i+1].type!=DEFREF && tokens[i+1].type!=TK_NOT) {
+                return false;
+            }
+            else if(i!=0 && (!isOP(i-1)) && tokens[i-1].type!='(') {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+
 uint32_t expr(char *e, bool *success) {
   if (!make_token(e)) {
     *success = false;
@@ -362,7 +404,9 @@ uint32_t expr(char *e, bool *success) {
           tokens[i].type=TK_MINUS;
       }
   }
-
+  if (!correctEXP()) {
+      *success=false;
+      return BAD_EXP;
+  }
   return eval(0,nr_token-1);
-//  return 0;
 }

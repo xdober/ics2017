@@ -232,11 +232,11 @@ int findOP(int p, int q){
     int i=0;
     int roots[q-p];
     int pos=0;
-//    printf("operaters: ");
+    printf("operaters: ");
     for (i = p; i <= q; ++i) {
         if (isOP(i) && !inBK(i, p, q) ) {
             roots[pos]=i;
-//            printf("%d,%c\t",i,tokens[i].type);
+            printf("%d,%c\t",i,tokens[i].type);
             pos++;
         }
     }

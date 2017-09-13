@@ -144,7 +144,8 @@ static inline void rtl_push(const rtlreg_t* src1) {
   // M[esp] <- src1
 //  TODO();
   cpu.esp-=4;
-  paddr_write(cpu.esp, 4, *src1);
+//  paddr_write(cpu.esp, 4, *src1);
+  rtl_sm(&cpu.esp, 4, src1);
 }
 
 static inline void rtl_pop(rtlreg_t* dest) {

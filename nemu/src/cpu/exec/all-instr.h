@@ -15,3 +15,4 @@ make_EHelper(ret);
 make_EHelper(jmp);
 
 make_EHelper(xor);
+make_EHelper(sub);

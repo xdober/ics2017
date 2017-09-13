@@ -8,8 +8,7 @@ make_EHelper(mov) {
 make_EHelper(push) {
 //  TODO();
 //  operand_write(id_dest, &id_src->val);
-  paddr_write(cpu.esp, 1, id_src->val);
-  cpu.esp = cpu.esp-2;
+  rtl_push(&id_src->val);
   print_asm_template1(push);
 }
 

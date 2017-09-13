@@ -8,3 +8,10 @@ make_EHelper(inv);
 make_EHelper(nemu_trap);
 
 make_EHelper(call);
+make_EHelper(nop);
+make_EHelper(push);
+make_EHelper(pop);
+make_EHelper(ret);
+make_EHelper(jmp);
+
+make_EHelper(xor);

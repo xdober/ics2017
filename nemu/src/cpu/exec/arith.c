@@ -8,7 +8,7 @@ make_EHelper(add) {
 
 make_EHelper(sub) {
 //  TODO();
-  printf("%ld",
+  printf("haha%ld",
   c_sub(id_src,id_dest));
   print_asm_template2(sub);
 }

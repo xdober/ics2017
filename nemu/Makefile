@@ -52,3 +52,6 @@ gdb: $(BINARY)
 
 clean: 
 	rm -rf $(BUILD_DIR)
+
+runtest:
+	cd ../nexus-am/tests/cputest && make ARCH=x86-nemu ALL=dummy run

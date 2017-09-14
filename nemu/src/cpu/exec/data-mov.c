@@ -9,7 +9,7 @@ make_EHelper(push) {
 //  TODO();
 //  operand_write(id_dest, &id_src->val);
   rtl_push(&id_src->val);
-  printf("pushed: 0x%x\n", id_src->val);
+  printf("id_src: 0x%x\n", id_src->val);
   print_asm_template1(push);
 }
 

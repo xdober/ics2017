@@ -13,8 +13,14 @@ make_EHelper(and) {
 }
 
 make_EHelper(xor) {
-//  TODO();
-  printf("hallo\n");
+//  TODO();2
+  rtl_xor(&t2, &id_src->val, &id_src2->val);
+  operand_write(id_dest, &t2);
+
+  cpu.EFLAGS.CF=0;
+  cpu.EFLAGS.OF=0;
+  rtl_update_ZFSF(&t2, id_dest->width);
+
 
   print_asm_template2(xor);
 }

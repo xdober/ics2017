@@ -14,7 +14,6 @@ make_EHelper(and) {
 
 make_EHelper(xor) {
 //  TODO();2
-  printf("%s,%s\n", id_src->str, id_src2->str);
   rtl_xor(&t2, &id_src->val, &id_src2->val);
   operand_write(id_dest, &t2);
 

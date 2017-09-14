@@ -152,38 +152,47 @@ void difftest_step(uint32_t eip) {
   if (r.eax!=cpu.eax) {
       diff=true;
       printf("eax bad\n");
+      printf("q: %x  n: %x\n", r.eax, cpu.eax);
   }
   else if(r.ebx!=cpu.ebx) {
       diff=true;
       printf("ebx bad\n");
+      printf("q: %x  n: %x\n", r.ebx, cpu.ebx);
   }
   else if(r.ecx!=cpu.ecx) {
       diff=true;
       printf("ecx bad\n");
+      printf("q: %x  n: %x\n", r.ecx, cpu.ecx);
   }
   else if(r.edx!=cpu.edx) {
       diff=true;
       printf("edx bad\n");
+      printf("q: %x  n: %x\n", r.edx, cpu.edx);
   }
   else if(r.ebp!=cpu.ebp) {
       diff=true;
       printf("ebp bad\n");
+      printf("q: %x  n: %x\n", r.ebp, cpu.ebp);
   }
   else if(r.esp!=cpu.esp) {
       diff=true;
       printf("esp bad\n");
+      printf("q: %x  n: %x\n", r.esp, cpu.esp);
   }
   else if(r.esi!=cpu.esi) {
       diff=true;
       printf("esi bad\n");
+      printf("q: %x  n: %x\n", r.esi, cpu.esi);
   }
   else if(r.edi!=cpu.edi) {
       diff=true;
       printf("edi bad\n");
+      printf("q: %x  n: %x\n", r.edi, cpu.edi);
   }
   else if(r.eip!=cpu.eip) {
       diff=true;
       printf("eip bad\n");
+      printf("q: %x  n: %x\n", r.eip, cpu.eip);
   }
   
 

@@ -8,8 +8,15 @@ make_EHelper(add) {
 
 make_EHelper(sub) {
 //  TODO();
-  printf("haha%ld",
-  c_sub(id_src,id_dest));
+//  printf("\n");
+  rtl_sub(&t2, &id_dest->val, &id_src->val);
+  operand_write(id_dest, &t2);
+  
+  rtl_update_ZFSF(&t2, id_dest->width);
+  
+  rtl_sltu(&t0, &t2, &id_dest->val);
+  printf("%d\n", t0);
+  
   print_asm_template2(sub);
 }
 

@@ -13,7 +13,8 @@ make_EHelper(and) {
 }
 
 make_EHelper(xor) {
-  TODO();
+//  TODO();
+  printf("hallo\n");
 
   print_asm_template2(xor);
 }

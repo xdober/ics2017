@@ -6,7 +6,6 @@ make_EHelper(mov) {
 }
 
 make_EHelper(push) {
-//  TODO();
 //  operand_write(id_dest, &id_src->val);
   rtl_push(&id_dest->val);
 //  printf("id_srcval: 0x%x\n", id_src->val);
@@ -14,7 +13,6 @@ make_EHelper(push) {
 }
 
 make_EHelper(pop) {
-//  TODO();
   rtl_pop(&t2);
   operand_write(id_dest, &t2);
 
@@ -35,7 +33,7 @@ make_EHelper(popa) {
 
 make_EHelper(leave) {
   TODO();
-
+  
   print_asm("leave");
 }
 

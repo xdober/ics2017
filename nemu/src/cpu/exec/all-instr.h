@@ -21,3 +21,4 @@ make_EHelper(and);
 make_EHelper(nop);
 make_EHelper(xchg);
 make_EHelper(add);
+make_EHelper(adc);

@@ -10,7 +10,7 @@ make_EHelper(and) {
 //  TODO();
   rtl_and(&t2, &id_src->val, &id_dest->val);
   operand_write(id_dest, &t2);
-  printf("src:%x\n", id_src->val);
+  printf("src:%x,%d\n", id_src->val,id_src->width);
 
   cpu.EFLAGS.CF=0;
   cpu.EFLAGS.OF=0;

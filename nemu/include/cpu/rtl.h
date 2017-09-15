@@ -113,7 +113,13 @@ static inline void rtl_sr(int r, int width, const rtlreg_t* src1) {
 
 #define make_rtl_setget_eflags(f) \
   static inline void concat(rtl_set_, f) (const rtlreg_t* src) { \
-    TODO(); \
+    /*TODO()*/\
+      if (*src==0) {\
+          cpu.EFLAGS.f=0;\
+      } \
+       else { \
+          cpu.EFLAGS.f=1;\
+       } \
   } \
   static inline void concat(rtl_get_, f) (rtlreg_t* dest) { \
     TODO(); \

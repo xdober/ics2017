@@ -216,6 +216,9 @@ make_DHelper(SI_E2G) {
   if (id_dest->width == 2) {
     id_src->val &= 0xffff;
   }
+  else if (id_dest->width==4) {
+      id_src->val |= 0xffff0000;
+  }
 }
 
 make_DHelper(gp2_1_E) {

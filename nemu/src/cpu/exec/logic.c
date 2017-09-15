@@ -80,7 +80,10 @@ make_EHelper(not) {
 }
 
 make_EHelper(sete) {
-  TODO();
+ // TODO();
+  uint8_t subcode = decoding.opcode & 0xf;
+  rtl_sete(&t2, subcode);
+  operand_write(id_dest, &t2);
 
-  print_asm_template1(sete);
+  print_asm("set%s %s", get_cc_name(subcode), id_dest->str);
 }

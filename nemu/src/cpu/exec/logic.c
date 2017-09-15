@@ -78,3 +78,9 @@ make_EHelper(not) {
 
   print_asm_template1(not);
 }
+
+make_EHelper(sete) {
+  TODO();
+
+  print_asm_template1(sete);
+}

@@ -207,7 +207,9 @@ make_DHelper(SI2E) {
     id_src->val &= 0xffff;
   }
   else if (id_dest->width==4) {
-      ;
+      if (id_src->val & 0x80) {
+          id_src->val |= 0xffffff00;
+      }
   }
 }
 

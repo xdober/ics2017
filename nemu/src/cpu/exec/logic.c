@@ -5,7 +5,7 @@ make_EHelper(test) {
   rtl_or(&t2, &id_src->val, &id_dest->val);
   cpu.EFLAGS.CF=0;
   cpu.EFLAGS.OF=0;
-
+  rtl_update_ZFSF(&t2, id_dest->width);
   print_asm_template2(test);
 }
 

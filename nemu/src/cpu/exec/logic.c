@@ -1,7 +1,10 @@
 #include "cpu/exec.h"
 
 make_EHelper(test) {
-  TODO();
+//  TODO();
+  rtl_or(&t2, &id_src->val, &id_dest->val);
+  cpu.EFLAGS.CF=0;
+  cpu.EFLAGS.OF=0;
 
   print_asm_template2(test);
 }

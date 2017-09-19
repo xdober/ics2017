@@ -48,7 +48,15 @@ make_EHelper(or) {
 }
 
 make_EHelper(sar) {
-  TODO();
+//  TODO();
+  t2=id_src->val;
+  t1=id_dest->val;
+  while(t1!=0){
+      t2=t2/2;
+      t1--;
+  }
+  operand_write(id_dest, &t2);
+  rtl_update_ZFSF(&t2, id_dest->val);
   // unnecessary to update CF and OF in NEMU
 
   print_asm_template2(sar);

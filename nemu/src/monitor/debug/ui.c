@@ -121,6 +121,7 @@ static int cmd_info(char *args){
             printf("esi = %x\n", cpu.esi);
             printf("edi = %x\n", cpu.edi);
             printf("eip = %x\n", cpu.eip);
+            printf("ZF=%d,OF=%d,CF=%d,SF=%d\n",cpu.EFLAGS.ZF,cpu.EFLAGS.OF,cpu.EFLAGS.CF,cpu.EFLAGS.SF);
         }
         else if(tp=='w'){
             showWP();

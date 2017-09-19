@@ -209,7 +209,7 @@ static inline void rtl_update_SF(const rtlreg_t* result, int width) {
 }
 
 static inline void rtl_sete(){
-
+    
 }
 
 static inline void rtl_update_ZFSF(const rtlreg_t* result, int width) {

@@ -49,8 +49,8 @@ make_EHelper(or) {
 
 make_EHelper(sar) {
 //  TODO();
-  t2=id_src->val;
-  t1=id_dest->val;
+  t2=id_dest->val;
+  t1=id_src->val;
   printf("t1=%d,t2=%d\n", t1, t2);
   while(t1!=0){
       t2=t2/2;

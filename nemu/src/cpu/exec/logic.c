@@ -2,6 +2,7 @@
 
 make_EHelper(test) {
 //  TODO();
+  printf("src=%d,dest=%d\n", id_src->val, id_dest->val);
   rtl_or(&t2, &id_src->val, &id_dest->val);
   cpu.EFLAGS.CF=0;
   cpu.EFLAGS.OF=0;

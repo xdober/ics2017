@@ -63,7 +63,7 @@ make_EHelper(sar) {
 }
 
 make_EHelper(shl) {
-  TODO();
+//  TODO();
   
   t2=id_dest->val;
   t1=id_src->val;

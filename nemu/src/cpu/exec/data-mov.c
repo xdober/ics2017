@@ -39,10 +39,22 @@ make_EHelper(leave) {
 
 make_EHelper(cltd) {
   if (decoding.is_operand_size_16) {
-    TODO();
+//    TODO();
+    if (cpu.eax & 0x8000) {
+        cpu.edx = cpu.edx | 0xffff;
+    }
+    else {
+        cpu.edx = cpu.edx & 0xffff0000;
+    }
   }
   else {
-    TODO();
+//    TODO();
+    if(cpu.eax & 0x80000000){
+        cpu.edx=0xffffffff;
+    }
+    else {
+        cpu.edx=0;
+    }
   }
 
   print_asm(decoding.is_operand_size_16 ? "cwtl" : "cltd");

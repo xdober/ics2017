@@ -3,7 +3,7 @@
 make_EHelper(test) {
 //  TODO();
 //  printf("src=0x%x,dest=0x%x\n", id_src->val, id_dest->val);
-  rtl_or(&t2, &id_src->val, &id_dest->val);
+  rtl_and(&t2, &id_src->val, &id_dest->val);
   cpu.EFLAGS.CF=0;
   cpu.EFLAGS.OF=0;
   rtl_update_ZFSF(&t2, id_dest->width);

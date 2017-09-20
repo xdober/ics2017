@@ -18,7 +18,7 @@ void rtl_setcc(rtlreg_t* dest, uint8_t subcode) {
     case CC_B:
     case CC_E:
         *dest = (cpu.EFLAGS.ZF==1)?1:0;
-        printf("ZF=%d\n",cpu.EFLAGS.ZF);
+//        printf("ZF=%d\n",cpu.EFLAGS.ZF);
         break;
     case CC_BE:
     case CC_S:
@@ -31,6 +31,6 @@ void rtl_setcc(rtlreg_t* dest, uint8_t subcode) {
 
   if (invert) {
     rtl_xori(dest, dest, 0x1);
-    printf("dest: %d\n",*dest);
+ //   printf("dest: %d\n",*dest);
   }
 }

@@ -1,5 +1,7 @@
 #include "cpu/exec.h"
 make_EHelper(cltd);
+make_EHelper(idiv);
+
 make_EHelper(dec);
 make_EHelper(imul1);
 make_EHelper(imul2);

@@ -91,7 +91,7 @@ opcode_entry opcode_table [512] = {
   /* 0x40 */	EMPTY, EMPTY, EMPTY, IDEX(r, inc),
   /* 0x44 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x48 */	IDEX(r, dec), EMPTY, EMPTY, EMPTY,
-  /* 0x4c */	EMPTY, EMPTY, EMPTY, EMPTY,
+  /* 0x4c */	EMPTY, EMPTY, IDEX(r, inc), EMPTY,
   /* 0x50 */	IDEX(r, push), IDEX(r, push), EMPTY, IDEX(r, push),
   /* 0x54 */	EMPTY, IDEX(r, push), IDEX(r, push), IDEX(r, push),
   /* 0x58 */	EMPTY, IDEX(r, pop), EMPTY, IDEX(r, pop),
@@ -134,7 +134,7 @@ opcode_entry opcode_table [512] = {
   /* 0xec */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0xf0 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0xf4 */	EMPTY, EMPTY, IDEXW(E, gp3, 1), IDEX(E, gp3),
-  /* 0xf8 */	IDEX(r, inc), EMPTY, EMPTY, EMPTY,
+  /* 0xf8 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0xfc */	EMPTY, EMPTY, IDEXW(E, gp4, 1), IDEX(E, gp5),
 
   /*2 byte_opcode_table */

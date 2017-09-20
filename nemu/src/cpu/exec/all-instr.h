@@ -1,6 +1,8 @@
 #include "cpu/exec.h"
 
+make_EHelper(imul1);
 make_EHelper(imul2);
+make_EHelper(imul3);
 make_EHelper(mov);
 
 make_EHelper(operand_size);

@@ -37,9 +37,9 @@ make_EHelper(cmp) {
 
   rtl_update_ZFSF(&t2, id_dest->width);
 
-  printf("t2:%x, dest:%x\n", t2, id_dest->val);
   rtl_sltu(&t0, &t2, &id_dest->val);
   rtl_set_CF(&t0);
+  printf("t0:%d,t2:%x, dest:%x\n", t0, t2, id_dest->val);
 
   print_asm_template2(cmp);
 }

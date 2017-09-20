@@ -5,6 +5,8 @@ make_EHelper(div);
 make_EHelper(not);
 
 make_EHelper(jmp_rm);
+make_EHelper(leave);
+
 make_EHelper(dec);
 make_EHelper(imul1);
 make_EHelper(imul2);

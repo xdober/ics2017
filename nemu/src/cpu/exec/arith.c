@@ -42,7 +42,9 @@ make_EHelper(cmp) {
   rtl_set_CF(&t0);
   printf("dest:%d,src:%x, result:%x\n", id_dest->val, id_src->val, t2);
   rtl_xor(&t0, &id_dest->val, &id_src->val);
+  printf("t0:%x\n",t0);
   rtl_xor(&t1, &t2, &id_dest->val);
+  printf("t1:%x\n",t1);
   rtl_and(&t0, &t0, &t1);
   rtl_msb(&t0, &t0, id_dest->val);
   rtl_set_OF(&t0);

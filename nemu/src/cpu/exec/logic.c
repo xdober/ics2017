@@ -53,7 +53,8 @@ make_EHelper(sar) {
   t2=id_dest->val;
   t1=id_src->val;
   while(t1!=0){
-      t2=t2/2;
+      t2=t2>>2;
+      t2=t2|(id_dest->val & 0x80000000);
       t1--;
   }
   operand_write(id_dest, &t2);

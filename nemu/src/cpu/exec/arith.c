@@ -45,9 +45,11 @@ make_EHelper(cmp) {
 
   rtl_update_ZFSF(&t2, id_dest->width);
 
-  rtl_sltu(&t0, &t2, &id_dest->val);
-  t0=!t0;
+  rtl_sltu(&t0, &id_dest->val, &t2);
   rtl_set_CF(&t0);
+//  rtl_sltu(&t0, &t2, &id_dest->val);
+ // t0=!t0;
+ // rtl_set_CF(&t0);
   rtl_xor(&t0, &id_dest->val, &id_src->val);
   rtl_xor(&t1, &t2, &id_dest->val);
   rtl_and(&t0, &t0, &t1);

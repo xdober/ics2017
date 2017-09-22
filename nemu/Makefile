@@ -54,4 +54,4 @@ clean:
 	rm -rf $(BUILD_DIR)
 
 runtest:
-	cd ../nexus-am/tests/cputest && make ARCH=x86-nemu ALL=string run
+	cd ../nexus-am/tests/cputest && make ARCH=x86-nemu ALL=sub-longlong run

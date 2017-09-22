@@ -47,7 +47,7 @@ make_EHelper(cmp) {
   printf("t1:%x\n",t1);
   rtl_and(&t0, &t0, &t1);
   printf("t1 & t0:%x\n", t0);
-  rtl_msb(&t0, &t0, id_dest->val);
+  rtl_msb(&t0, &t0, id_dest->width);
   printf("t1&t0:%x\n", t0);
   rtl_set_OF(&t0);
 

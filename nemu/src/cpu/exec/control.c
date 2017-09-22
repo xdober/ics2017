@@ -43,7 +43,10 @@ make_EHelper(ret) {
 }
 
 make_EHelper(call_rm) {
-  TODO();
+//  TODO();
+  t2=vaddr_read(id_dest->val, 4);
+  decoding.jmp_eip = decoding.seq_eip+t2;
+  rtl_push(&decoding.seq_eip);
 
   print_asm("call *%s", id_dest->str);
 }

@@ -40,15 +40,15 @@ make_EHelper(cmp) {
   rtl_sltu(&t0, &t2, &id_dest->val);
   t0=!t0;
   rtl_set_CF(&t0);
-  printf("dest:%d,src:%x, result:%x\n", id_dest->val, id_src->val, t2);
+//  printf("dest:%d,src:%x, result:%x\n", id_dest->val, id_src->val, t2);
   rtl_xor(&t0, &id_dest->val, &id_src->val);
-  printf("t0:%x\n",t0);
+//  printf("t0:%x\n",t0);
   rtl_xor(&t1, &t2, &id_dest->val);
-  printf("t1:%x\n",t1);
+//  printf("t1:%x\n",t1);
   rtl_and(&t0, &t0, &t1);
-  printf("t1 & t0:%x\n", t0);
+//  printf("t1 & t0:%x\n", t0);
   rtl_msb(&t0, &t0, id_dest->width);
-  printf("t1&t0:%x\n", t0);
+//  printf("t1&t0:%x\n", t0);
   rtl_set_OF(&t0);
 
   print_asm_template2(cmp);

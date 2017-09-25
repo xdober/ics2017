@@ -15,7 +15,11 @@ void rtl_setcc(rtlreg_t* dest, uint8_t subcode) {
   // dest <- ( cc is satisfied ? 1 : 0)
   switch (subcode & 0xe) {
     case CC_O:
+        *dest = (cpu.EFLAGS.OF==1)?1:0;
+        break;
     case CC_B:
+        *dest = (cpu.EFLAGS.CF==1)?1:0;
+        break;
     case CC_E:
         *dest = (cpu.EFLAGS.ZF==1)?1:0;
 //        printf("ZF=%d\n",cpu.EFLAGS.ZF);

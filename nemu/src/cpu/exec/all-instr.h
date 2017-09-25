@@ -17,6 +17,8 @@ make_EHelper(imul3);
 make_EHelper(mov);
 
 make_EHelper(operand_size);
+make_EHelper(out);
+make_EHelper(in);
 
 make_EHelper(inv);
 make_EHelper(nemu_trap);

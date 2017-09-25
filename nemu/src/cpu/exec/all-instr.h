@@ -10,6 +10,7 @@ make_EHelper(call_rm);
 make_EHelper(leave);
 make_EHelper(shr);
 
+make_EHelper(mul);
 make_EHelper(dec);
 make_EHelper(imul1);
 make_EHelper(imul2);

@@ -64,20 +64,20 @@ make_EHelper(cltd) {
 make_EHelper(cwtl) {
   if (decoding.is_operand_size_16) {
 //    TODO();
-    if(cpu.eax & 0x8000) {
-        cpu.eax |= 0xffff0000;
-    }
-    else {
-        cpu.eax &= 0xffff;
-    }
-  }
-  else {
-//    TODO();
     if (cpu.eax & 0x80) {
         cpu.eax |= 0xff00;
     }
     else {
         cpu.eax &= 0xffff00ff;
+    }
+  }
+  else {
+//    TODO();
+    if(cpu.eax & 0x8000) {
+        cpu.eax |= 0xffff0000;
+    }
+    else {
+        cpu.eax &= 0xffff;
     }
   }
 

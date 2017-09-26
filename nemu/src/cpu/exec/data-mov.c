@@ -76,6 +76,7 @@ make_EHelper(cltd) {
                       
         }
 }
+/*
 make_EHelper(cwtl) {
   if (decoding.is_operand_size_16) {
     rtl_msb(&t0, (rtlreg_t *)(&reg_b(R_AL)), 1);
@@ -88,7 +89,26 @@ make_EHelper(cwtl) {
 
   print_asm(decoding.is_operand_size_16 ? "cbtw" : "cwtl");
 }
+*/
+make_EHelper(cwtl) {
 
+      if (decoding.is_operand_size_16) {
+
+             rtl_msb(&t0, (rtlreg_t *)(&reg_b(R_AL)), 1);
+                 reg_b(R_AH) = t0 ? 0xffff : 0x0000;
+                    // reg_l(R_EAX)<0?(reg_l(R_EDX) = 0xffffffff):(reg_l(R_EDX) = 0);
+                    //   
+      }
+        else {
+
+                //reg_w(R_AX)<0?(reg_w(R_DX) = 0xffff):(reg_w(R_DX) = 0);
+                    rtl_msb(&t0, (rtlreg_t *)(&reg_w(R_AX)), 2);
+                        reg_l(R_EAX) = t0 ? (0xffff0000 | reg_w(R_AX)) : (0x0 | reg_w(R_AX));
+                //          
+        }
+          print_asm(decoding.is_operand_size_16 ? "cbtw" : "cwtl");
+
+}
 
 // make_EHelper(cwtl) {
 //   if (decoding.is_operand_size_16) {

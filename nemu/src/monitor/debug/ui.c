@@ -137,11 +137,11 @@ static int cmd_p(char *args){
     bool success=true;
     int result=0;
     result=expr(args, &success);
-    if(success && result!=0x80000000){
+    if(success && result!=0xfffffffd){
         printf("%d\n",result);
     }
     else {
-        printf("uncorrect input!\n");
+        printf("incorrect input!\n");
     }
     return 0;
 }

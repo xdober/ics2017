@@ -38,7 +38,7 @@ make_EHelper(leave) {
   print_asm("leave");
 }
 
-make_EHelper(cltd) {
+/*make_EHelper(cltd) {
   if (decoding.is_operand_size_16) {
 //    TODO();
     if (cpu.eax & 0x8000) {
@@ -59,6 +59,22 @@ make_EHelper(cltd) {
   }
 
   print_asm(decoding.is_operand_size_16 ? "cwtl" : "cltd");
+}*/
+
+make_EHelper(cltd) {
+
+      if (decoding.is_operand_size_16) {
+
+              rtl_msb(&t0, (rtlreg_t *)(&reg_w(R_AX)), 2);
+                  reg_w(R_DX) = t0 ? 0xffff : 0x0000;
+                    
+      }
+        else {
+
+                rtl_msb(&t0, &reg_l(R_EAX), 4);
+                    reg_l(R_EDX) = t0 ? 0xffffffff : 0x00000000;
+                      
+        }
 }
 make_EHelper(cwtl) {
   if (decoding.is_operand_size_16) {
@@ -72,6 +88,8 @@ make_EHelper(cwtl) {
 
   print_asm(decoding.is_operand_size_16 ? "cbtw" : "cwtl");
 }
+
+
 // make_EHelper(cwtl) {
 //   if (decoding.is_operand_size_16) {
 // //    TODO();

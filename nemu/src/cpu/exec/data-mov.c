@@ -109,39 +109,39 @@ make_EHelper(cwtl) {
           print_asm(decoding.is_operand_size_16 ? "cbtw" : "cwtl");
 
 }
+/*
+ make_EHelper(cwtl) {
+   if (decoding.is_operand_size_16) {
+ //    TODO();
+     if (cpu.eax & 0x80) {
+         printf("1 old 16 bit eax:%x\n",cpu.eax);
+         cpu.eax |= 0xff00;
+         printf("1 new 16 bit eax:%x\n",cpu.eax);
+     }
+     else {
 
-// make_EHelper(cwtl) {
-//   if (decoding.is_operand_size_16) {
-// //    TODO();
-//     if (cpu.eax & 0x80) {
-//         printf("1 old 16 bit eax:%x\n",cpu.eax);
-//         cpu.eax |= 0xff00;
-//         printf("1 new 16 bit eax:%x\n",cpu.eax);
-//     }
-//     else {
+         printf("0 old 16 bit eax:%x\n",cpu.eax);
+         cpu.eax &= 0xffff00ff;
+         printf("0 new 16 bit eax:%x\n",cpu.eax);
+     }
+   }
+   else {
+ //    TODO();
+     if(cpu.eax & 0x8000) {
+         printf("1 new 32 bit eax:%x\n",cpu.eax);
+         cpu.eax |= 0xffff0000;
+         printf("1 new 32 bit eax:%x\n",cpu.eax);
+     }
+     else {
+         printf("0 old 32 bit eax:%x\n",cpu.eax);
+         cpu.eax &= 0xffff;
+         printf("0 new 32 bit eax:%x\n",cpu.eax);
+     }
+   }
 
-//         printf("0 old 16 bit eax:%x\n",cpu.eax);
-//         cpu.eax &= 0xffff00ff;
-//         printf("0 new 16 bit eax:%x\n",cpu.eax);
-//     }
-//   }
-//   else {
-// //    TODO();
-//     if(cpu.eax & 0x8000) {
-//         printf("1 new 32 bit eax:%x\n",cpu.eax);
-//         cpu.eax |= 0xffff0000;
-//         printf("1 new 32 bit eax:%x\n",cpu.eax);
-//     }
-//     else {
-//         printf("0 old 32 bit eax:%x\n",cpu.eax);
-//         cpu.eax &= 0xffff;
-//         printf("0 new 32 bit eax:%x\n",cpu.eax);
-//     }
-//   }
-
-//   print_asm(decoding.is_operand_size_16 ? "cbtw" : "cwtl");
-// }
-
+   print_asm(decoding.is_operand_size_16 ? "cbtw" : "cwtl");
+ }
+*/
 make_EHelper(movsx) {
   id_dest->width = decoding.is_operand_size_16 ? 2 : 4;
 //  printf("src=0x%x,dest=0x%x,t2=0x%x\n", id_src->val, id_dest->val,t2);

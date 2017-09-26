@@ -68,7 +68,7 @@ make_EHelper(cwtl) {
         cpu.eax |= 0xff00;
     }
     else {
-        cpu.eax &= 0xff;
+        cpu.eax &= 0xffff00ff;
     }
   }
   else {

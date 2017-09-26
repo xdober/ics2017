@@ -65,19 +65,28 @@ make_EHelper(cwtl) {
   if (decoding.is_operand_size_16) {
 //    TODO();
     if (cpu.eax & 0x80) {
+        printf("1 old 16 bit eax:%x\n",cpu.eax);
         cpu.eax |= 0xff00;
+        printf("1 new 16 bit eax:%x\n",cpu.eax);
     }
     else {
+
+        printf("0 old 16 bit eax:%x\n",cpu.eax);
         cpu.eax &= 0xffff00ff;
+        printf("0 new 16 bit eax:%x\n",cpu.eax);
     }
   }
   else {
 //    TODO();
     if(cpu.eax & 0x8000) {
+        printf("1 new 32 bit eax:%x\n",cpu.eax);
         cpu.eax |= 0xffff0000;
+        printf("1 new 32 bit eax:%x\n",cpu.eax);
     }
     else {
+        printf("0 old 32 bit eax:%x\n",cpu.eax);
         cpu.eax &= 0xffff;
+        printf("0 new 32 bit eax:%x\n",cpu.eax);
     }
   }
 

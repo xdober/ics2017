@@ -11,6 +11,7 @@ make_EHelper(sbb);
 make_EHelper(call_rm);
 make_EHelper(leave);
 make_EHelper(shr);
+make_EHelper(rol);
 
 make_EHelper(mul);
 make_EHelper(dec);

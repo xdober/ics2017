@@ -93,7 +93,16 @@ make_EHelper(dec) {
 }
 
 make_EHelper(neg) {
-  TODO();
+//  TODO();
+  if(id_dest->val==0){
+      rtl_li(&t0, 0);
+  }
+  else {
+      rtl_li(&t0, 1);
+  }
+  rtl_set_CF(&t0);
+  t2=-id_dest->val;
+  operand_write(id_dest, &t2);
 
   print_asm_template1(neg);
 }

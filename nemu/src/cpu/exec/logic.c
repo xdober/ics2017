@@ -50,14 +50,16 @@ make_EHelper(or) {
 
 make_EHelper(sar) {
 //  TODO();
-  t2=id_dest->val;
-  t1=id_src->val;
+//  t2=id_dest->val;
+//  t1=id_src->val;
 //  printf("src:%x, dest:%x\n", id_src->val, id_dest->val);
-  while(t1!=0){
+/*  while(t1!=0){
       t2=t2>>1;
       t2=t2|(id_dest->val & 0x80000000);
       t1--;
   }
+  */
+  rtl_sar(&t2, &id_dest->val, &id_src->val);
   operand_write(id_dest, &t2);
   rtl_update_ZFSF(&t2, id_dest->val);
   // unnecessary to update CF and OF in NEMU
@@ -68,12 +70,14 @@ make_EHelper(sar) {
 make_EHelper(shl) {
 //  TODO();
   
-  t2=id_dest->val;
+/*  t2=id_dest->val;
   t1=id_src->val;
   while(t1!=0){
       t2=t2*2;
       t1--;
   }
+ */
+  rtl_shl(&t2, &id_dest->val, &id_src->val);
   operand_write(id_dest, &t2);
   rtl_update_ZFSF(&t2, id_dest->val);
   // unnecessary to update CF and OF in NEMU
@@ -85,12 +89,14 @@ make_EHelper(shr) {
 //  TODO();
   // unnecessary to update CF and OF in NEMU
 
-  t2=id_dest->val;
+/*  t2=id_dest->val;
   t1=id_src->val;
   while(t1!=0){
       t2=t2/2;
       t1--;
   }
+  */
+  rtl_shr(&t2, &id_dest->val, &id_src->val);
   operand_write(id_dest, &t2);
   rtl_update_ZFSF(&t2, id_dest->val);
   print_asm_template2(shr);

@@ -59,6 +59,9 @@ make_EHelper(sar) {
       t1--;
   }
   */
+  if(id_dest->width==2 && ((id_dest->val)&0x8000)){
+      id_dest->val |= 0xffff00;
+  }
   rtl_sar(&t2, &id_dest->val, &id_src->val);
   operand_write(id_dest, &t2);
   rtl_update_ZFSF(&t2, id_dest->val);

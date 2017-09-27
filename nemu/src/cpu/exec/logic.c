@@ -52,7 +52,7 @@ make_EHelper(sar) {
 //  TODO();
 //  t2=id_dest->val;
 //  t1=id_src->val;
-  printf("src:%x, dest:%d\n", id_src->val, id_dest->val);
+  printf("src:%x, dest:%d, dest-width:%d\n", id_src->val, id_dest->val, id_dest->width);
 /*  while(t1!=0){
       t2=t2>>1;
       t2=t2|(id_dest->val & 0x80000000);

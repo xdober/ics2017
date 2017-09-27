@@ -4,6 +4,7 @@ make_EHelper(idiv);
 make_EHelper(div);
 make_EHelper(not);
 make_EHelper(cwtl);
+make_EHelper(neg);
 
 make_EHelper(jmp_rm);
 make_EHelper(sbb);

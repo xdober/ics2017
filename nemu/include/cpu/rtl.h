@@ -63,7 +63,7 @@ static inline void rtl_lm(rtlreg_t *dest, const rtlreg_t* addr, int len) {
   *dest = vaddr_read(*addr, len);
 }
 
-static void rtl_sm(rtlreg_t* addr, int len, const rtlreg_t* src1) {
+static inline void rtl_sm(rtlreg_t* addr, int len, const rtlreg_t* src1) {
   vaddr_write(*addr, len, *src1);
 }
 
